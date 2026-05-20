@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  
+  --color-accent: #FBD95E;
+  --color-accent-hover: #B39D00;
+  --color-bg-dark: #28292D;
+  --color-bg-mid: #35373E;
+  
+  --shadow-neon: 0 0 15px rgba(251, 217, 94, 0.4);
+}
+
+@layer base {
+  body {
+    @apply font-sans antialiased bg-bg-dark text-white;
+  }
+}
+
+@layer components {
+  .hud-border {
+    @apply border border-accent/20 relative rounded-sm;
+  }
+
+  .hud-label {
+    @apply absolute -top-2.5 left-4 px-2 py-0.5 bg-bg-dark text-[10px] font-bold text-accent uppercase tracking-widest z-10;
+  }
+
+  .glass-panel {
+    @apply bg-white/5 backdrop-blur-md border border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)];
+  }
+
+  /* Real screen/glass effect with reflections */
+  .screen-effect {
+    @apply relative overflow-hidden bg-black/40 border border-white/10 rounded-sm shadow-inner;
+  }
+  
+  .screen-effect::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent pointer-events-none;
+  }
+
+  .screen-effect::after {
+    content: '';
+    @apply absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%)] bg-[length:100%_4px] opacity-10 pointer-events-none;
+  }
+
+  .rhombus-bg {
+    background-color: #0A0B0E;
+    background-image: 
+      linear-gradient(30deg, #111111 12%, transparent 12.5%, transparent 87%, #111111 87.5%, #111111),
+      linear-gradient(150deg, #111111 12%, transparent 12.5%, transparent 87%, #111111 87.5%, #111111),
+      linear-gradient(30deg, #111111 12%, transparent 12.5%, transparent 87%, #111111 87.5%, #111111),
+      linear-gradient(150deg, #111111 12%, transparent 12.5%, transparent 87%, #111111 87.5%, #111111),
+      linear-gradient(60deg, #151515 25%, transparent 25.5%, transparent 75%, #151515 75%, #151515),
+      linear-gradient(60deg, #151515 25%, transparent 25.5%, transparent 75%, #151515 75%, #151515);
+    background-size: 80px 140px;
+    background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
+  }
+}
+
+@layer utilities {
+  .bg-gradient-radial {
+    background-image: radial-gradient(var(--tw-gradient-stops));
+  }
+}

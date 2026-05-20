@@ -1,0 +1,33 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Global Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isValidId(id) { 
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$'); 
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function isValidLeaderboardEntry(data) {
+      return data.keys().hasAll(['name', 'level', 'time', 'createdAt']) &&
+             data.keys().size() == 4 &&
+             data.name is string && data.name.size() == 4 &&
+             data.level is string && data.level.size() <= 20 &&
+             data.time is number && data.time > 0 &&
+             data.createdAt == request.time;
+    }
+
+    match /leaderboards/{entryId} {
+      allow list: if true;
+      allow get: if true;
+      allow create: if isValidLeaderboardEntry(incoming()) && isValidId(entryId);
+      // No updates or deletes allowed for leaderboard integrity
+    }
+  }
+}

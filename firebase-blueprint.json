@@ -1,0 +1,35 @@
+{
+  "entities": {
+    "leaderboardEntry": {
+      "title": "Leaderboard Entry",
+      "description": "A score entry on the leaderboard",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "4-character user name"
+        },
+        "level": {
+          "type": "string",
+          "description": "Level ID (e.g., light, sound, show)"
+        },
+        "time": {
+          "type": "number",
+          "description": "Completion time in seconds"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Time of entry"
+        }
+      },
+      "required": ["name", "level", "time", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/leaderboards/{entryId}": {
+      "schema": "leaderboardEntry",
+      "description": "Global collection of best times"
+    }
+  }
+}

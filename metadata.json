@@ -1,0 +1,8 @@
+{
+  "name": "Ламповая Аренда",
+  "description": "Интерактивная мини-игра в стиле сценического оборудования. Пройдите уровни света, звука и шоу, чтобы получить промокод на скидку.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
